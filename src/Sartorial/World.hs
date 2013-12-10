@@ -1,15 +1,15 @@
-module World ( LinkDirections (..)
-             , roomCount
-             , freshWorld
-             , addRoom
-             , accessibleRooms
-             , roomsAccessibleToPlayer
-             , linkRooms
-             , placePlayerInRoom
-             ) where
+module Sartorial.World ( LinkDirections (..)
+                       , roomCount
+                       , freshWorld
+                       , addRoom
+                       , accessibleRooms
+                       , roomsAccessibleToPlayer
+                       , linkRooms
+                       , placePlayerInRoom
+                       ) where
 
-import Room   (Room (..))
-import Player (Player (..))
+import Sartorial.Room   (Room (..))
+import Sartorial.Player (Player (..))
 
 import qualified Data.Map.Lazy as M
 import qualified Data.Set      as S

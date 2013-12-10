@@ -1,4 +1,4 @@
-module Player where
+module Sartorial.Player where
 
 data Player = Player { location :: Maybe Int }
 

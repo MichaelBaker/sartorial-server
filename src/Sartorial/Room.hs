@@ -1,4 +1,4 @@
-module Room where
+module Sartorial.Room where
 
 data Room = Room { name        :: String
                  , description :: String
