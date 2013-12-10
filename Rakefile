@@ -1,14 +1,18 @@
 namespace :update do
+  def pull_vendor_subtree(project_name, git_url)
+    sh "git subtree pull --prefix vendor/#{project_name} #{git_url} master --squash"
+  end
+
   desc "Update all dependencies in 'vendor'"
   task :all => [:sartorial, :sartorial_client]
 
   desc "Update the sartorial repository"
   task :sartorial do
-    sh "git subtree pull --prefix vendor/sartorial git@github.com:MichaelBaker/sartorial.git master --squash"
+    pull_vendor_subtree("sartorial", "git@github.com:MichaelBaker/sartorial.git")
   end
 
   desc "Update the sartorial-client repository"
   task :sartorial_client do
-    sh "git subtree pull --prefix vendor/sartorial-client git@github.com:MichaelBaker/sartorial-client.git master --squash"
+    pull_vendor_subtree("sartorial-client", "git@github.com:MichaelBaker/sartorial-client.git")
   end
 end
