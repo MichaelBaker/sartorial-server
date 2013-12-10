@@ -4,17 +4,17 @@ import Test.Hspec            (describe, it, shouldBe)
 import Test.Hspec.QuickCheck (property)
 import Data.List             (foldl')
 
-import Player (freshPlayer)
-import Room   (freshRoom)
-import World  ( LinkDirections (..)
-              , roomCount
-              , freshWorld
-              , addRoom
-              , accessibleRooms
-              , roomsAccessibleToPlayer
-              , linkRooms
-              , placePlayerInRoom
-              )
+import Sartorial.Player (freshPlayer)
+import Sartorial.Room   (freshRoom)
+import Sartorial.World  ( LinkDirections (..)
+                        , roomCount
+                        , freshWorld
+                        , addRoom
+                        , accessibleRooms
+                        , roomsAccessibleToPlayer
+                        , linkRooms
+                        , placePlayerInRoom
+                        )
 
 spec = describe "World" $ do
   describe "roomCount" $ do
