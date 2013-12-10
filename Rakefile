@@ -1,3 +1,9 @@
+desc "Setup the project for the first time"
+task :setup do
+  sh "cabal sandbox add-source vendor/sartorial"
+  sh "cabal sandbox add-source vendor/sartorial-client"
+end
+
 namespace :update do
   def pull_vendor_subtree(project_name, git_url)
     sh "git subtree pull --prefix vendor/#{project_name} #{git_url} master --squash"
