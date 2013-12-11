@@ -1,4 +1,5 @@
 module Sartorial.World ( LinkDirections (..)
+                       , World ()
                        , roomCount
                        , freshWorld
                        , addRoom
