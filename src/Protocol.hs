@@ -1,9 +1,11 @@
 module Protocol where
 
-data Request = Thing
+data Request = AddPlayerRequest  { addPlayerName :: String }
+             | PlayerListRequest
              deriving (Show, Read, Eq)
 
-data Response = Ohai
-              | InvalidRequest
+data Response = SuccessResponse
+              | ErrorResponse String
+              | PlayerListResponse [String]
+              | InvalidRequestResponse
               deriving (Show, Read, Eq)
-
