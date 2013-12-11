@@ -1,5 +1,9 @@
 module Sartorial.Player where
 
-data Player = Player { location :: Maybe Int }
+data Player = Player { playerName :: String
+                     , location   :: Maybe Int
+                     }
 
-freshPlayer = Player { location = Nothing }
+freshPlayer = Player { location   = Nothing
+                     , playerName = "No one"
+                     }
