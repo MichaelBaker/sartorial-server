@@ -4,6 +4,11 @@ task :setup do
   sh "cabal sandbox add-source vendor/sartorial-client"
 end
 
+desc "Start the game server"
+task :server do
+  sh ".cabal-sandbox/bin/sartorial-server"
+end
+
 namespace :update do
   def pull_vendor_subtree(project_name, git_url)
     sh "git subtree pull --prefix vendor/#{project_name} #{git_url} master --squash"

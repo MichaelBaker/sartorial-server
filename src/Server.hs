@@ -2,7 +2,7 @@
 
 module Server (gameServer, handleCommand, GameState (..)) where
 
-import Web.Scotty                  (get, body, text)
+import Web.Scotty                  (get, post, body, text, file)
 import Data.Text.Lazy              (pack)
 import Data.ByteString.Lazy.Char8  (unpack)
 import Safe                        (readMay)
@@ -22,8 +22,11 @@ data GameState = GameState { startingRoom :: Room
                            }
 
 gameServer gameState = do
-  get "/thing" $ do
-    command  <- body
+  get "/" $ file "vendor/public/index.html"
+
+  post "/command" $ do
+    command <- body
+    liftIO $ print command
     response <- liftIO $ atomically $ do
       currentState <- readTVar gameState
       let (newGameState, response) = handleCommand currentState $ bytestringToString command
