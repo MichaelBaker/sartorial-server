@@ -19,6 +19,7 @@ import qualified Data.Map as M
 data GameState = GameState { startingRoom :: Room
                            , world        :: World
                            , players      :: M.Map String Player
+                           , chats        :: M.Map String [String]
                            }
 
 gameServer gameState = do
@@ -40,11 +41,18 @@ handleCommand gameState commandText = case readMay commandText of
 
 process gameState PlayerListRequest        = (gameState, PlayerListResponse $ M.keys $ players gameState)
 process gameState (AddPlayerRequest name)  = (newGameState, SuccessResponse)
-  where newGameState = gameState { players = newPlayers }
+  where newGameState = gameState { players = newPlayers, chats = newChats }
         player       = freshPlayer { playerName = name }
-        (newPlayers, response) = case placePlayerInRoom (world gameState) player (startingRoom gameState) of
-                                   Just player -> (M.insert name player $ players gameState, SuccessResponse)
-                                   Nothing     -> (players gameState, ErrorResponse "Room does not exist")
+        (newPlayers, newChats, response) = case placePlayerInRoom (world gameState) player (startingRoom gameState) of
+                                   Just player -> (M.insert name player $ players gameState, M.insert name [] $ chats gameState, SuccessResponse)
+                                   Nothing     -> (players gameState, chats gameState, ErrorResponse "Room does not exist")
+process gameState (ChatMessage chatPlayer chatMessage) = (newGameState, SuccessResponse)
+  where newGameState       = gameState { chats = newChats }
+        newChats           = M.map updateMessages $ chats gameState
+        updateMessages old = old ++ [newMessage]
+        newMessage         = chatPlayer ++ ": " ++ chatMessage
+
+process gameState _ = (gameState, InvalidRequestResponse)
 
 bytestringToString = unpack
 stringToText       = pack

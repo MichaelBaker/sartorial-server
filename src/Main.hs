@@ -9,7 +9,7 @@ import Data.Map                             (empty)
 
 main = do
   let (newWorld, startingRoom) = addRoom freshWorld freshRoom
-  gameState <- newTVarIO (GameState startingRoom newWorld empty)
+  gameState <- newTVarIO (GameState startingRoom newWorld empty empty)
   scotty 8334 $ do
     middleware logStdoutDev
     middleware $ staticPolicy $ noDots >-> addBase "vendor"

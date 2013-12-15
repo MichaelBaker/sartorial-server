@@ -2,6 +2,7 @@ module Protocol where
 
 data Request = AddPlayerRequest  { addPlayerName :: String }
              | PlayerListRequest
+             | ChatMessage       { chatPlayer :: String, chatMessage :: String }
              deriving (Show, Read, Eq)
 
 data Response = SuccessResponse
