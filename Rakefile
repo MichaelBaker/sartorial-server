@@ -9,6 +9,11 @@ task :server do
   sh ".cabal-sandbox/bin/sartorial-server"
 end
 
+desc "Run the tests"
+task :test do
+  sh ".cabal-sandbox/bin/test"
+end
+
 namespace :update do
   def pull_vendor_subtree(project_name, git_url)
     sh "git subtree pull --prefix vendor/#{project_name} #{git_url} master --squash"
