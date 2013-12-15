@@ -39,7 +39,7 @@ handleCommand gameState commandText = case readMay commandText of
                                         Just command -> process gameState command
                                         Nothing      -> (gameState, InvalidRequestResponse)
 
-process gameState PlayerListRequest        = (gameState, PlayerListResponse $ M.keys $ players gameState)
+process gameState PlayerListRequest = (gameState, PlayerListResponse $ M.keys $ players gameState)
 
 process gameState (AddPlayerRequest name)  = (newGameState, SuccessResponse)
   where newGameState = gameState { players = newPlayers, chats = newChats }

@@ -2,12 +2,35 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Sartorial</title>
+    <style>
+    #current-players {
+      display: inline-block;
+    }
+
+    #current-players {
+      display: inline-block;
+    }
+
+    #command {
+      display: none;
+    }
+    </style>
   </head>
+
   <body>
     <ul id="current-players"></ul>
-    <input type="text" id="add-player-input">
-    <input type="submit" id="add-player-submit" value="Add Player">
-    <input type="text" id="command-line-input">
+    <ul id="chat-messages"></ul>
+
+    <div id="add-player">
+      <input type="text" id="add-player-input">
+      <input type="submit" id="add-player-submit" value="Add Player">
+    </div>
+
+    <div id="command">
+      <input type="text" id="command-input">
+      <input type="submit" id="command-submit" value="Submit">
+    </div>
+
     <script src="/public/jquery.min.js"></script>
     <script src="/public/all.js"></script>
   </body>
