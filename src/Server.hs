@@ -40,17 +40,23 @@ handleCommand gameState commandText = case readMay commandText of
                                         Nothing      -> (gameState, InvalidRequestResponse)
 
 process gameState PlayerListRequest        = (gameState, PlayerListResponse $ M.keys $ players gameState)
+
 process gameState (AddPlayerRequest name)  = (newGameState, SuccessResponse)
   where newGameState = gameState { players = newPlayers, chats = newChats }
         player       = freshPlayer { playerName = name }
         (newPlayers, newChats, response) = case placePlayerInRoom (world gameState) player (startingRoom gameState) of
                                    Just player -> (M.insert name player $ players gameState, M.insert name [] $ chats gameState, SuccessResponse)
                                    Nothing     -> (players gameState, chats gameState, ErrorResponse "Room does not exist")
-process gameState (ChatMessage chatPlayer chatMessage) = (newGameState, SuccessResponse)
+
+process gameState (ChatMessageRequest chatPlayer chatMessage) = (newGameState, SuccessResponse)
   where newGameState       = gameState { chats = newChats }
         newChats           = M.map updateMessages $ chats gameState
         updateMessages old = old ++ [newMessage]
         newMessage         = chatPlayer ++ ": " ++ chatMessage
+
+process gameState (ChatUpdatesRequest chatPlayer) = (newGameState, ChatUpdatesResponse messages)
+  where messages     = M.findWithDefault [] chatPlayer (chats gameState)
+        newGameState = gameState { chats = M.insert chatPlayer [] (chats gameState) }
 
 process gameState _ = (gameState, InvalidRequestResponse)
 

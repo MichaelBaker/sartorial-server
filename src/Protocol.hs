@@ -1,12 +1,14 @@
 module Protocol where
 
-data Request = AddPlayerRequest  { addPlayerName :: String }
+data Request = AddPlayerRequest   { addPlayerName :: String }
              | PlayerListRequest
-             | ChatMessage       { chatPlayer :: String, chatMessage :: String }
+             | ChatMessageRequest { chatPlayer :: String, chatMessage :: String }
+             | ChatUpdatesRequest { chatPlayer :: String }
              deriving (Show, Read, Eq)
 
 data Response = SuccessResponse
               | ErrorResponse String
               | PlayerListResponse [String]
+              | ChatUpdatesResponse [String]
               | InvalidRequestResponse
               deriving (Show, Read, Eq)
